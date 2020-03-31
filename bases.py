@@ -6,7 +6,7 @@ import string
 # string.hexdigits is '0123456789abcdefABCDEF'
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-ALPHA = string.ascii_uppercase
+ALPHA = string.ascii_lowercase
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
@@ -61,17 +61,16 @@ def convert(digits, base1, base2):
             if len(str(digits%base2)) == 2: 
                 converstion += f'{ALPHA[int(digits%base2)-10]}'
                 digits/=base2
-                print(int(digits))
             else: 
                 converstion += f'{int(digits%base2)}'
                 digits/=base2
-                print(int(digits))
-    elif base1 == 2:
-        converstion += str(sum([int(binary)*(2**int(power)) for power, binary in enumerate(digits[::-1])]))
+    else:
+        converstion += str(sum([int(binary)*(base1**int(power)) for power, binary in enumerate(digits[::-1])]))
         return convert(converstion, 10, base2)
             
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    converstion += f'{int(digits)}'
+    if int(digits):
+        converstion += f'{int(digits)}'
     return converstion[::-1]
 
 
