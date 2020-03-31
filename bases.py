@@ -61,9 +61,11 @@ def convert(digits, base1, base2):
             if len(str(digits%base2)) == 2: 
                 converstion += f'{ALPHA[int(digits%base2)-10]}'
                 digits/=base2
+                print(int(digits))
             else: 
                 converstion += f'{int(digits%base2)}'
                 digits/=base2
+<<<<<<< HEAD
     else:
         converstion += str(sum([int(binary)*(base1**int(power)) for power, binary in enumerate(digits[::-1])]))
         return convert(converstion, 10, base2)
@@ -71,6 +73,15 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     if int(digits):
         converstion += f'{int(digits)}'
+=======
+                print(int(digits))
+    elif base1 == 2:
+        converstion += str(sum([int(binary)*(2**int(power)) for power, binary in enumerate(digits[::-1])]))
+        return convert(converstion, 10, base2)
+            
+    # TODO: Convert digits from base 10 to base 16 (and vice versa)
+    converstion += f'{int(digits)}'
+>>>>>>> e133a7b5f1be773ae70082a043bc26c41b44971c
     return converstion[::-1]
 
 
