@@ -16,7 +16,7 @@ def decode(digits, base):
     base: int -- base of given number
     return: int -- integer representation of number (in base 10)"""
     # Handle up to base 36 [0-9a-z]
-    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+    assert 2 <= base <= 36, f'base is out of range: {base}'
     # TODO: Decode digits from binary (base 2)
     # ...
     # TODO: Decode digits from hexadecimal (base 16)
@@ -31,9 +31,9 @@ def encode(number, base):
     base: int -- base to convert to
     return: str -- string representation of number (in given base)"""
     # Handle up to base 36 [0-9a-z]
-    assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
+    assert 2 <= base <= 36, f'base is out of range: {base}'
     # Handle unsigned numbers only for now
-    assert number >= 0, 'number is negative: {}'.format(number)
+    assert number >= 0, f'number is negative: {number}'
     # TODO: Encode number in binary (base 2)
     # ...
     # TODO: Encode number in hexadecimal (base 16)
@@ -49,16 +49,36 @@ def convert(digits, base1, base2):
     base2: int -- base to convert to
     return: str -- string representation of number (in base2)"""
     # Handle up to base 36 [0-9a-z]
-    assert 2 <= base1 <= 36, 'base1 is out of range: {}'.format(base1)
-    assert 2 <= base2 <= 36, 'base2 is out of range: {}'.format(base2)
+    assert 2 <= base1 <= 36, f'base1 is out of range: {base1}'
+    assert 2 <= base2 <= 36, f'base2 is out of range: {base2}'
+    converstion = ""
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
     # ...
+    if base1 == 10 and base2 <= 10 :
+        digits = int(digits)
+        while digits > base2:
+            converstion += f'{int(digits%base2)}'
+            digits/=base2
+    elif base1 == 2 and base2 <= 10:
+        converstion += str(sum([int(binary)*(2**int(power)) for power, binary in enumerate(digits[::-1])]))
+        return convert(converstion, 10, base2)
+            
+
+    
+
+
+    
+
+
+
+
     # TODO: Convert digits from base 2 to base 10 (and vice versa)
     # ...
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
-    # ...
+    converstion += f'{int(digits)}'
+    return converstion[::-1]
 
 
 def main():
@@ -71,10 +91,10 @@ def main():
         base2 = int(args[2])
         # Convert given digits between bases
         result = convert(digits, base1, base2)
-        print('{} in base {} is {} in base {}'.format(digits, base1, result, base2))
+        print(f'{digits} in base {base1} is {result} in base {base2}')
     else:
-        print('Usage: {} digits base1 base2'.format(sys.argv[0]))
-        print('Converts digits from base1 to base2')
+        print(f'Usage: {sys.argv[0]} digits base1 base2')
+        print(f'Converts digits from base1 to base2')
 
 
 if __name__ == '__main__':
