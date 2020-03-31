@@ -56,21 +56,21 @@ def convert(digits, base1, base2):
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
     # ...
     if base1 == 10:
-        digits = int(digits)
-        while digits > base2:
+        while int(digits) > base2 or int(digits) >= 10:
+            digits = int(digits)
             if len(str(digits%base2)) == 2: 
                 converstion += f'{ALPHA[int(digits%base2)-10]}'
                 digits/=base2
+                print(int(digits))
             else: 
                 converstion += f'{int(digits%base2)}'
                 digits/=base2
+                print(int(digits))
     elif base1 == 2:
         converstion += str(sum([int(binary)*(2**int(power)) for power, binary in enumerate(digits[::-1])]))
         return convert(converstion, 10, base2)
             
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
-    # ...
-    # TODO: Convert digits from any base to any base (2 up to 36)
     converstion += f'{int(digits)}'
     return converstion[::-1]
 
