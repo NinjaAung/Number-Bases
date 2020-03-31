@@ -6,6 +6,7 @@ import string
 # string.hexdigits is '0123456789abcdefABCDEF'
 # string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
 # string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ALPHA = string.ascii_uppercase
 # string.ascii_letters is ascii_lowercase + ascii_uppercase
 # string.printable is digits + ascii_letters + punctuation + whitespace
 
@@ -54,26 +55,19 @@ def convert(digits, base1, base2):
     converstion = ""
     # TODO: Convert digits from base 2 to base 16 (and vice versa)
     # ...
-    if base1 == 10 and base2 <= 10 :
+    if base1 == 10:
         digits = int(digits)
         while digits > base2:
-            converstion += f'{int(digits%base2)}'
-            digits/=base2
-    elif base1 == 2 and base2 <= 10:
+            if len(str(digits%base2)) == 2: 
+                converstion += f'{ALPHA[int(digits%base2)-10]}'
+                digits/=base2
+            else: 
+                converstion += f'{int(digits%base2)}'
+                digits/=base2
+    elif base1 == 2:
         converstion += str(sum([int(binary)*(2**int(power)) for power, binary in enumerate(digits[::-1])]))
         return convert(converstion, 10, base2)
             
-
-    
-
-
-    
-
-
-
-
-    # TODO: Convert digits from base 2 to base 10 (and vice versa)
-    # ...
     # TODO: Convert digits from base 10 to base 16 (and vice versa)
     # ...
     # TODO: Convert digits from any base to any base (2 up to 36)
