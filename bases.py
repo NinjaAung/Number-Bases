@@ -1,16 +1,29 @@
 #!python
-
+# bases.py
+#
+# Author: Nyein Chan Aung @ 2019
+#
 import string
-# Hint: Use these string constants to encode/decode hexadecimal digits and more
-# string.digits is '0123456789'
-# string.hexdigits is '0123456789abcdefABCDEF'
-# string.ascii_lowercase is 'abcdefghijklmnopqrstuvwxyz'
-# string.ascii_uppercase is 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+import time
+
+def timer(func):
+    def wrapper(*args, **kwargs):
+        time_start = time.time()
+        print(func(*args, **kwargs))
+        print(f'---->{time.time() - time_start}<----')
+    return wrapper
+
+
+
+
+
+
+time.time()
 ALPHA = string.ascii_lowercase
 ALPHA_HASH = {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15, 'g': 16, 'h': 17, 'i': 18, 'j': 19, 'k': 20, 'l': 21, 'm': 22, 'n': 23, 'o': 24, 'p': 25, 'q': 26, 'r'
 : 27, 's': 28, 't': 29, 'u': 30, 'v': 31, 'w': 32, 'x': 33, 'y': 34, 'z': 35}
-# string.ascii_letters is ascii_lowercase + ascii_uppercase
-# string.printable is digits + ascii_letters + punctuation + whitespace
+
+# @timer
 def convert(digits, base1, base2):
     """Convert given digits in base1 to digits in base2.
     digits: str -- string representation of number (in base1)
@@ -30,7 +43,7 @@ def convert(digits, base1, base2):
                 converstion += f'{int(digits%base2)}'
                 digits/=base2
     else:
-        converstion += str(sum([int(binary)*(base1**int(power)) if binary.isdecimal() else int(ALPHA_HASH[binary])*(base1**int(power)) for power, binary in enumerate(digits[::-1])]))
+        converstion += str(sum([int(binary)*(base1**int(power)) if binary.isdecimal() else int(ALPHA_HASH[binary.lower()])*(base1**int(power)) for power, binary in enumerate(digits[::-1])]))
         return convert(converstion, 10, base2)
     if int(digits):
         converstion += f'{int(digits)}'
