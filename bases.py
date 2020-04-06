@@ -13,12 +13,6 @@ def timer(func):
         print(f'---->{time.time() - time_start}<----')
     return wrapper
 
-
-
-
-
-
-time.time()
 ALPHA = string.ascii_lowercase
 ALPHA_HASH = {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15, 'g': 16, 'h': 17, 'i': 18, 'j': 19, 'k': 20, 'l': 21, 'm': 22, 'n': 23, 'o': 24, 'p': 25, 'q': 26, 'r'
 : 27, 's': 28, 't': 29, 'u': 30, 'v': 31, 'w': 32, 'x': 33, 'y': 34, 'z': 35}
@@ -43,7 +37,8 @@ def convert(digits, base1, base2):
                 converstion += f'{int(digits%base2)}'
                 digits/=base2
     else:
-        converstion += str(sum([int(binary)*(base1**int(power)) if binary.isdecimal() else int(ALPHA_HASH[binary.lower()])*(base1**int(power)) for power, binary in enumerate(digits[::-1])]))
+        digits = digits[::-1]
+        converstion += str(sum([int(digits[power])*(base1**int(power)) if digits[power].isdecimal() else int(ALPHA_HASH[digits[power].lower()])*(base1**int(power)) for power in range(len(digits))]))
         return convert(converstion, 10, base2)
     if int(digits):
         converstion += f'{int(digits)}'
